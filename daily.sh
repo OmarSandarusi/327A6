@@ -22,6 +22,8 @@ done
 # Combine the transaction files produced by these sessions
 # into a merged transaction file
 echo "Merging transaction files..."
+rm "$OUTDIR/mergedtransactions.txt"
+
 for j in `seq $NUMSESSIONS`
 do
     echo "`cat "$OUTDIR/transaction$j.txt"`" >> "$OUTDIR/mergedtransactions.txt"

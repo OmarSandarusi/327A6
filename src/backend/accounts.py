@@ -10,8 +10,6 @@ class Accounts:
     #--------------------------------------------------------------------
     def __init__(self, oldMasterFile, newMasterFile, accountsFile):
         lines = FileIO.readLines(oldMasterFile)
-        if len(lines) < 1:
-            Utility.fatal('Empty Master Accounts File')
         self.newMasterFile = newMasterFile
         self.accountsFile = accountsFile
         self.list = []
@@ -33,7 +31,7 @@ class Accounts:
     # Add an account
     #--------------------------------------------------------------------
     def addAccount(self, number, name): #number and balance have to be int
-        if self.getAccountByNumber(number) is None:
+        if self.getAccountByNumber(number) is not None:
             Utility.log('Account already exists for account: ' + number)
         else:
             self.list.append(Account(number, 0, name))
@@ -122,33 +120,44 @@ class Accounts:
     # Sort list and output the master and valid account files
     #--------------------------------------------------------------------
     def finish(self): #sort and write
-        self.list = mergesort(self.list) 
+        self.list = self.mergesort(self.list) 
         validAccounts = []
         master = []
         for account in self.list:
             validAccounts.append(account.number)
-            master.append('' + account.number + ' ' + account.balance + ' ' + account.name)
+
+            # Format the balance to be at least three numbers
+            if (account.balance == 0):
+                balance = '000'
+            else :
+                balance = str(account.balance)
+                if (len(balance) == 1):
+                    balance = '00' + balance
+                elif (len(balance) == 2):
+                    balance = '0' + balance
+                
+            master.append('' + str(account.number) + ' ' + balance + ' ' + account.name)
         FileIO.writeLines(self.newMasterFile, master)
         FileIO.writeLines(self.accountsFile, validAccounts)
 
     #--------------------------------------------------------------------
     # Sort accounts by their account number
     #--------------------------------------------------------------------
-    def mergesort(accounts):
+    def mergesort(self, accounts):
         if (len(accounts) == 1 or len(accounts) == 0):
             return accounts
 
         mid = len(accounts) / 2
         
-        l = mergesort(accounts[:mid])
-        r = mergesort(accounts[mid:])
+        l = self.mergesort(accounts[:mid])
+        r = self.mergesort(accounts[mid:])
 
-        return merge(l, r)
+        return self.merge(l, r)
 
     #--------------------------------------------------------------------
     # Merge two lists of accounts by order of account number
     #--------------------------------------------------------------------
-    def merge(left, right):
+    def merge(self, left, right):
         res = []
         i = 0
         j = 0
