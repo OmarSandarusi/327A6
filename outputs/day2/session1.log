@@ -1,0 +1,9 @@
+
+############
+ FRONT END
+############
+
+ > Machine or agent > Logged in as machine
+ > Account # > Amount in cents > Error: Amount cannot be over $1000 when logged in as machine
+ > Account # > Amount in cents >  > Logged out
+ > 

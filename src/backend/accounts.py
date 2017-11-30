@@ -20,13 +20,10 @@ class Accounts:
 
             if (len(params) != 3):
                 Utility.fatal("Line " + str(count) + " is invalid - parameter count != 3")
-         
-            Utility.checkAccountNumber(params[0])
-            Utility.checkAmount(params[1])  
-            Utility.checkAccountName(params[2])
 
             self.list.append(Account(int(params[0]), int(params[1]), params[2]))
-    
+            count += 1
+
     #--------------------------------------------------------------------
     # Add an account
     #--------------------------------------------------------------------
@@ -34,12 +31,13 @@ class Accounts:
         if self.getAccountByNumber(number) is not None:
             Utility.log('Account already exists for account: ' + number)
         else:
-            self.list.append(Account(number, 0, name))
+            self.list.append(Account(int(number), 0, name))
 
     #--------------------------------------------------------------------
     # Get an account by its number
     #--------------------------------------------------------------------
     def getAccountByNumber(self, number):
+        number = int(number)
         for account in self.list:
             if account.number == number:
                 return account
@@ -58,6 +56,8 @@ class Accounts:
     # Delete an account
     #--------------------------------------------------------------------
     def deleteAccount(self, number, name):
+        number = int(number)
+
         acct = self.getAccountByNumber(number)
         if acct is None:
             Utility.log('Aborting delete, account does not exist: ' + number)
@@ -77,6 +77,9 @@ class Accounts:
     # Deposit an amount to an account
     #--------------------------------------------------------------------
     def deposit(self, number, amount):
+        number = int(number)
+        amount = int(amount)
+
         acct = self.getAccountByNumber(number)
         if acct is None:
             Utility.log('Aborting deposit, account does not exist: ' + number)
@@ -87,6 +90,9 @@ class Accounts:
     # Withdraw an amount from an account
     #--------------------------------------------------------------------
     def withdraw(self, number, amount):
+        number = int(number)
+        amount = int(amount)
+
         acct = self.getAccountByNumber(number)
         if acct is None:
             Utility.log('Aborting withdrawal, account does not exist: ' + number)
@@ -100,17 +106,21 @@ class Accounts:
     # Transfer an amount between the two accounts
     #--------------------------------------------------------------------
     def transfer(self, fromNumber, toNumber, amount):
+        fromNumber = int(fromNumber)
+        toNumber = int(toNumber)
+        amount = int(amount)
+
         fromAcct = self.getAccountByNumber(fromNumber)
         toAcct   = self.getAccountByNumber(toNumber)
 
         if fromAcct is None:
-            Utility.log('Aborting transfer, account does not exist: ' + fromNumber)
+            Utility.log('Aborting transfer, account does not exist: ' + str(fromNumber))
         elif toAcct is None:
-            Utility.log('Aborting transfer, account does not exist: ' + toNumber)
+            Utility.log('Aborting transfer, account does not exist: ' + str(toNumber))
         elif fromNumber == toNumber:
-            Utility.log('Aborting transfer, cannot transfer between the same accounts: ' + fromNumber + '/' + toNumber)
+            Utility.log('Aborting transfer, cannot transfer between the same accounts: ' + str(fromNumber) + '/' + str(toNumber))
         elif fromAcct.balance < amount:
-            Utility.log('Aborting transfer, not enough funds in the source account: ' + fromNumber)
+            Utility.log('Aborting transfer, not enough funds in the source account: ' + str(fromNumber))
         else:
             fromAcct.balance -= amount
             toAcct.balance   += amount
@@ -123,8 +133,9 @@ class Accounts:
         self.list = self.mergesort(self.list) 
         validAccounts = []
         master = []
+
         for account in self.list:
-            validAccounts.append(account.number)
+            validAccounts.append(str(account.number))
 
             # Format the balance to be at least three numbers
             if (account.balance == 0):
@@ -137,6 +148,10 @@ class Accounts:
                     balance = '0' + balance
                 
             master.append('' + str(account.number) + ' ' + balance + ' ' + account.name)
+        
+        # Append the all zero account number to validAccounts
+        validAccounts.append('0000000')
+        
         FileIO.writeLines(self.newMasterFile, master)
         FileIO.writeLines(self.accountsFile, validAccounts)
 

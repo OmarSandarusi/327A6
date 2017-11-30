@@ -11,7 +11,6 @@ OUTDIR="$ORIGDIR/outputs/$DAY"
 
 
 # Run each session of the front end for the given day
-cd input
 for i in `seq $NUMSESSIONS`
 do
 echo "Running session $i on $DAY..."
@@ -22,7 +21,7 @@ done
 # Combine the transaction files produced by these sessions
 # into a merged transaction file
 echo "Merging transaction files..."
-rm "$OUTDIR/mergedtransactions.txt"
+rm -f "$OUTDIR/mergedtransactions.txt"
 
 for j in `seq $NUMSESSIONS`
 do

@@ -1,0 +1,9 @@
+login
+machine
+deposit
+1000001
+1111111
+deposit
+1000002
+100
+logout
