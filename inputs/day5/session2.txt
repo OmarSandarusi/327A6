@@ -2,5 +2,5 @@ login
 machine
 deposit
 1000002
-198230
+10000
 logout
