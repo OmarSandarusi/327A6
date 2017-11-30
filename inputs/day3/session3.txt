@@ -1,0 +1,10 @@
+login
+machine
+withdraw
+1000001
+600
+transfer
+1000003
+1000001
+10000
+logout

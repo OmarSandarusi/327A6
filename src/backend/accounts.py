@@ -60,11 +60,11 @@ class Accounts:
 
         acct = self.getAccountByNumber(number)
         if acct is None:
-            Utility.log('Aborting delete, account does not exist: ' + number)
+            Utility.log('Aborting delete, account does not exist: ' + str(number))
             return
 
         if acct.balance != 0:
-            Utility.log('Aborting delete, account balance is not zero: ' + number)
+            Utility.log('Aborting delete, account balance is not zero: ' + str(number))
         elif acct.name != name:
             Utility.log('Aborting delete, account names do not match: ' + name + ' / ' + acct.name)
         else:
@@ -82,7 +82,7 @@ class Accounts:
 
         acct = self.getAccountByNumber(number)
         if acct is None:
-            Utility.log('Aborting deposit, account does not exist: ' + number)
+            Utility.log('Aborting deposit, account does not exist: ' + str(number))
             return
         acct.balance += amount
     
@@ -95,10 +95,10 @@ class Accounts:
 
         acct = self.getAccountByNumber(number)
         if acct is None:
-            Utility.log('Aborting withdrawal, account does not exist: ' + number)
+            Utility.log('Aborting withdrawal, account does not exist: ' + str(number))
             return
         if acct.balance < amount:
-            Utility.log('Aborting withdrawal, the account does not have enough funds: ' + number)
+            Utility.log('Aborting withdrawal, the account does not have enough funds: ' + str(acct.balance) + "/" + str(amount))
         else:
             acct.balance -= amount
     

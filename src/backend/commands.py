@@ -119,8 +119,6 @@ class Commands:
     # Dispatcher function that ensures it is a valid command
     #--------------------------------------------------------------------
     def runCommand(self, cmd, account1, account2, amount, name):
-        print('runCommand')
-        print(cmd)
         if cmd not in Commands.VALID_COMMANDS:
             raise ValueError('Invalid command code: ' + cmd)
         else:

@@ -4,6 +4,6 @@ deposit
 1000001
 900
 withdraw
-10000002
-600
+1000002
+100
 logout

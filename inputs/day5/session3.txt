@@ -1,0 +1,6 @@
+login
+agent
+createacct
+1000004
+test4
+logout

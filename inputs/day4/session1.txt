@@ -1,0 +1,10 @@
+login
+agent
+transfer
+1000003
+1000001
+2590000
+deleteacct
+1000003
+test3
+logout

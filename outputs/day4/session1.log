@@ -1,1 +1,8 @@
-Empty Accounts File
+
+############
+ FRONT END
+############
+
+ > Machine or agent > Logged in as agent
+ > From account # > To account # > Amount to transfer in cents >  > Enter the account number of the account to delete > Enter the name of the account to delete >  > Logged out
+ > 
